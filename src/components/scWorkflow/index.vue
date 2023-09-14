@@ -70,7 +70,7 @@
 	.sc-workflow-design .box-scale {display: inline-block;position: relative;width: 100%;padding: 54.5px 0px;align-items: flex-start;justify-content: center;flex-wrap: wrap;min-width: min-content;}
 
 	.sc-workflow-design {
-		.node-wrap {display: inline-flex;width: 100%;flex-flow: column wrap;justify-content: flex-start;align-items: center;padding: 0px 50px;position: relative;z-index: 1;}
+		.node-wrap {display: inline-flex;width: 100%;flex-flow: column wrap;justify-content: flex-start;align-items: center;padding: 0px 0px;position: relative;z-index: 1;}
 		.node-wrap-box {display: inline-flex;flex-direction: column;position: relative;width: 220px;min-height: 72px;flex-shrink: 0;background: rgb(255, 255, 255);border-radius: 4px;cursor: pointer;box-shadow: 0 2px 5px 0 rgba(0,0,0,.1);}
 		.node-wrap-box::before {content: "";position: absolute;top: -12px;left: 50%;transform: translateX(-50%);width: 0px;border-style: solid;border-width: 8px 6px 4px;border-color: rgb(202, 202, 202) transparent transparent;background: #f6f8f9;}
 		.node-wrap-box.start-node:before {content: none}
