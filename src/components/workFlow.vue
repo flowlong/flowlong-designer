@@ -26,7 +26,8 @@
     <el-input
       :autosize="{ maxRows: 20 }"
       v-model="text"
-      type="textarea" />
+      type="textarea"
+      @change="(value) => (text = JSON.stringify(JSON.parse(value), null, '  '))" />
     <template #footer>
       <span class="dialog-footer">
         <el-button
@@ -134,6 +135,7 @@ const text = ref(JSON.stringify(data.value, null, '  '))
 const onInput = () => {
   try {
     data.value = JSON.parse(text.value)
+    text.value = JSON.stringify(data.value, null, '  ')
     dialogUpdate.value = false
     ElMessage({
       message: '修改成功',
