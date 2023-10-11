@@ -1,51 +1,36 @@
 <template>
-  <el-container>
-    <el-header height="32">
-      <div style="float: right">
+  <div style="display: flex; justify-content: center; height: 100vh">
+    <sc-workflow
+      class="workflow"
+      v-model="data.nodeConfig" />
+    <div style="height: 100vh">
+      <div style="display: flex; justify-content: flex-end; padding: 2px; background-color: #3883fa">
         <el-button
           type="primary"
-          @click="() => (dialogUpdate = true)">
-          Update
+          plain
+          @click="copyParseJson">
+          复制格式化后的 JSON
         </el-button>
-      </div>
-    </el-header>
-    <el-main>
-      <div style="display: flex; justify-content: center">
-        <sc-workflow v-model="data.nodeConfig" />
-        <json-viewer
-          :value="data"
-          :expand-depth="5"
-          copyable
-          sort />
-      </div>
-    </el-main>
-  </el-container>
-  <el-dialog
-    v-model="dialogUpdate"
-    title="修改流程">
-    <el-input
-      :autosize="{ maxRows: 20 }"
-      v-model="text"
-      type="textarea"
-      @change="(value) => (text = JSON.stringify(JSON.parse(value), null, '  '))" />
-    <template #footer>
-      <span class="dialog-footer">
         <el-button
           type="primary"
-          @click="onInput">
-          确定
+          plain
+          @click="copyJson">
+          复制压缩后的 JSON
         </el-button>
-      </span>
-    </template>
-  </el-dialog>
+      </div>
+      <json-editor-vue
+        class="editor"
+        language="zh-CN"
+        current-mode="view"
+        v-model="data" />
+    </div>
+  </div>
 </template>
 
 <script setup>
+import useClipboard from 'vue-clipboard3'
 import { ref } from 'vue'
-import { ElMessage } from 'element-plus'
 import scWorkflow from '@/components/scWorkflow/index.vue'
-
-const dialogUpdate = ref(false)
 
 const data = ref({
   id: 1,
@@ -130,21 +115,40 @@ const data = ref({
   }
 })
 
-const text = ref(JSON.stringify(data.value, null, '  '))
+const { toClipboard } = useClipboard()
 
-const onInput = () => {
-  try {
-    data.value = JSON.parse(text.value)
-    text.value = JSON.stringify(data.value, null, '  ')
-    dialogUpdate.value = false
-    ElMessage({
-      message: '修改成功',
-      type: 'success'
-    })
-  } catch {
-    ElMessage.error('JSON 格式有误')
-  }
+const copyParseJson = async () => {
+  await toClipboard(JSON.stringify(data.value, null, '  '))
+}
+
+const copyJson = async () => {
+  await toClipboard(JSON.stringify(data.value))
 }
 </script>
 
-<style></style>
+<style>
+body {
+  margin: 0;
+}
+
+.editor {
+  width: 700px;
+  height: calc(100vh - 36px);
+}
+
+.editor .jsoneditor-poweredBy,
+.editor .jsoneditor-transform,
+.editor .jsoneditor-repair,
+.editor .full-screen {
+  display: none !important;
+}
+
+.workflow {
+  padding: 10px;
+  overflow-y: auto;
+}
+
+.jsoneditor-menu > button.jsoneditor-copy {
+  background-position: -48px 0px;
+}
+</style>
