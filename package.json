@@ -11,10 +11,13 @@
   "dependencies": {
     "@element-plus/icons-vue": "^2.1.0",
     "element-plus": "^2.3.12",
+    "install": "^0.13.0",
+    "json-editor-vue3": "^1.0.8",
     "vue": "^3.3.4",
-    "vue3-json-viewer": "^2.2.2"
+    "vue-clipboard3": "^2.0.0"
   },
   "devDependencies": {
+    "@originjs/vite-plugin-commonjs": "^1.0.3",
     "@vitejs/plugin-vue": "^4.2.3",
     "sass": "^1.66.1",
     "vite": "^4.4.5"
