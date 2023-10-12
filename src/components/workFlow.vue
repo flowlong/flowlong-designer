@@ -1,36 +1,52 @@
 <template>
-  <div style="display: flex; justify-content: center; height: 100vh">
+  <div class="affix-container">
+    <el-affix target=".affix-container">
+      <el-button
+        type="primary"
+        @click="() => (drawer = true)">
+        展开
+      </el-button>
+    </el-affix>
     <sc-workflow
       class="workflow"
       v-model="data.nodeConfig" />
-    <div style="height: 100vh">
-      <div style="display: flex; justify-content: flex-end; padding: 2px; background-color: #3883fa">
-        <el-button
-          type="primary"
-          plain
-          @click="copyParseJson">
-          复制格式化后的 JSON
-        </el-button>
-        <el-button
-          type="primary"
-          plain
-          @click="copyJson">
-          复制压缩后的 JSON
-        </el-button>
+    <el-drawer
+      v-model="drawer"
+      size="500px"
+      class="drawer"
+      :with-header="false"
+      :show-close="false">
+      <div style="height: 100vh">
+        <div style="display: flex; justify-content: flex-end; padding: 2px; background-color: #3883fa">
+          <el-button
+            type="primary"
+            plain
+            @click="copyParseJson">
+            复制格式化后的 JSON
+          </el-button>
+          <el-button
+            type="primary"
+            plain
+            @click="copyJson">
+            复制压缩后的 JSON
+          </el-button>
+        </div>
+        <json-editor-vue
+          class="editor"
+          language="zh-CN"
+          current-mode="view"
+          v-model="data" />
       </div>
-      <json-editor-vue
-        class="editor"
-        language="zh-CN"
-        current-mode="view"
-        v-model="data" />
-    </div>
+    </el-drawer>
   </div>
 </template>
 
 <script setup>
-import useClipboard from 'vue-clipboard3'
 import { ref } from 'vue'
+import useClipboard from 'vue-clipboard3'
 import scWorkflow from '@/components/scWorkflow/index.vue'
+
+const drawer = ref(false)
 
 const data = ref({
   id: 1,
@@ -127,12 +143,23 @@ const copyJson = async () => {
 </script>
 
 <style>
+:root {
+  --el-drawer-padding-primary: 0;
+}
+
 body {
   margin: 0;
 }
 
+.affix-container {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  flex-direction: row-reverse;
+}
+
 .editor {
-  width: 700px;
+  width: 500px;
   height: calc(100vh - 36px);
 }
 
@@ -150,5 +177,9 @@ body {
 
 .jsoneditor-menu > button.jsoneditor-copy {
   background-position: -48px 0px;
+}
+
+.el-drawer__body {
+  padding: 0 !important;
 }
 </style>
