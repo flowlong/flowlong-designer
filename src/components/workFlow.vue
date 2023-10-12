@@ -1,12 +1,10 @@
 <template>
   <div class="affix-container">
-    <el-affix target=".affix-container">
-      <el-button
-        type="primary"
-        @click="() => (drawer = true)">
-        展开
-      </el-button>
-    </el-affix>
+    <el-button
+      type="primary"
+      @click="() => (drawer = true)">
+      查看 JSON
+    </el-button>
     <sc-workflow
       class="workflow"
       v-model="data.nodeConfig" />
@@ -14,10 +12,11 @@
       v-model="drawer"
       size="500px"
       class="drawer"
-      :with-header="false"
-      :show-close="false">
+      :append-to-body="true"
+      :modal="false"
+      :with-header="false">
       <div style="height: 100vh">
-        <div style="display: flex; justify-content: flex-end; padding: 2px; background-color: #3883fa">
+        <div style="padding: 1px; background-color: #3883fa">
           <el-button
             type="primary"
             plain
@@ -29,6 +28,12 @@
             plain
             @click="copyJson">
             复制压缩后的 JSON
+          </el-button>
+          <el-button
+            type="primary"
+            plain
+            @click="drawer = false">
+            关闭弹窗
           </el-button>
         </div>
         <json-editor-vue
