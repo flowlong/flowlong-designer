@@ -1,10 +1,5 @@
 <template>
   <div class="affix-container">
-    <el-button
-      type="primary"
-      @click="() => (drawer = true)">
-      查看 JSON
-    </el-button>
     <sc-workflow
       class="workflow"
       v-model="data.nodeConfig" />
@@ -43,9 +38,15 @@
           v-model="data" />
       </div>
     </el-drawer>
+    </div>
+    <div style="position: absolute;z-index: 1;top: 20px;right: 50px">
+      <el-button
+          type="primary"
+          @click="() => (drawer = true)">
+        查看 JSON
+      </el-button>
   </div>
 </template>
-
 <script setup>
 import { ref } from 'vue'
 import useClipboard from 'vue-clipboard3'
