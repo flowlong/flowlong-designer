@@ -18,7 +18,10 @@
         <div class="end-node-text">流程结束</div>
       </div>
     </div>
-    <!--<use-select v-if="selectVisible" ref="useselect" @closed="selectVisible=false"></use-select>-->
+    <use-select
+      v-if="selectVisible"
+      ref="useselect"
+      @closed="selectVisible = false"></use-select>
   </div>
 </template>
 
