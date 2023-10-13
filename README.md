@@ -23,3 +23,7 @@ npm run dev
 
 npm run build
 ```
+
+## 鸣谢
+
+- 本项目参考修改组件 [scWorkflow](https://gitee.com/lolicode/scui/tree/master/src/components/scWorkflow)
