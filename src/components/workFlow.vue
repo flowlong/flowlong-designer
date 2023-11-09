@@ -71,12 +71,14 @@ const data = ref({
           priorityLevel: 1,
           conditionMode: 1,
           conditionList: [
-            {
-              label: '请假天数',
-              field: 'day',
-              operator: '>',
-              value: '7'
-            }
+            [
+              {
+                label: '请假天数',
+                field: 'day',
+                operator: '>',
+                value: '7'
+              }
+            ]
           ],
           childNode: {
             nodeName: '领导审批',
