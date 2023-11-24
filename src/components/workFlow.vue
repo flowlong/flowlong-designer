@@ -1,7 +1,7 @@
 <template>
   <el-affix
     :offset="16"
-    style="position: absolute">
+    style="height: 74px; width: 100%">
     <div class="btn-container">
       <el-button
         type="primary"
@@ -10,33 +10,38 @@
       </el-button>
       <el-button
         type="primary"
-        icon="el-icon-plus"
-        style="margin-top: 16px; margin-left: 0; width: 32px"
-        @click="zoom += 0.1" />
-      <el-slider
-        v-model="zoom"
-        vertical
-        :marks="marks"
-        :min="0.1"
-        :max="5"
-        :step="0.1"
-        style="margin-top: 32px"
-        height="200px" />
-      <el-button
-        type="primary"
-        icon="el-icon-minus"
-        style="margin-top: 30px; width: 32px"
-        @click="zoom -= 0.1" />
+        @click="saveAsPng">
+        保存图片
+      </el-button>
+      <div class="slider">
+        <el-button
+          type="primary"
+          icon="el-icon-plus"
+          style="margin-right: 16px; width: 32px"
+          @click="zoom += 0.1" />
+        <el-slider
+          v-model="zoom"
+          :marks="marks"
+          :min="0.1"
+          :max="5"
+          :step="0.1"
+          height="200px" />
+        <el-button
+          type="primary"
+          icon="el-icon-minus"
+          style="margin-left: 16px; width: 32px"
+          @click="zoom -= 0.1" />
+      </div>
     </div>
   </el-affix>
   <div
-    @wheel="handleWeel"
     class="affix-container"
     :style="`transform: scale(${zoom})`"
     style="transform-origin: 0 0">
     <sc-workflow
       class="workflow"
       ref="workflowRef"
+      id="content-to-capture"
       v-model="data.nodeConfig" />
     <el-drawer
       v-model="drawer"
@@ -76,7 +81,8 @@
   </div>
 </template>
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
+import html2canvas from 'html2canvas'
 import useClipboard from 'vue-clipboard3'
 import scWorkflow from '@/components/scWorkflow/index.vue'
 
@@ -188,10 +194,11 @@ const copyJson = async () => {
 }
 
 const handleWeel = (e) => {
+  e.preventDefault()
   if (e.wheelDelta < 0) {
-    zoom.value -= 0.05
+    zoom.value -= 0.1
   } else {
-    zoom.value += 0.05
+    zoom.value += 0.1
   }
 
   if (zoom.value <= 0.1) {
@@ -200,6 +207,22 @@ const handleWeel = (e) => {
     zoom.value = 5
   }
 }
+
+const saveAsPng = async () => {
+  const element = document.getElementById('content-to-capture')
+  const canvas = await html2canvas(element, {
+    backgroundColor: '#efefef'
+  })
+  const image = canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream')
+  let link = document.createElement('a')
+  link.download = 'my-image.png'
+  link.href = image
+  link.click()
+}
+
+onMounted(() => {
+  document.getElementById('app').onwheel = (e) => handleWeel(e)
+})
 </script>
 
 <style>
@@ -215,7 +238,7 @@ body {
 .affix-container {
   display: flex;
   justify-content: center;
-  height: 100vh;
+  height: calc(100vh - 74px);
   flex-direction: row-reverse;
 }
 
@@ -245,9 +268,14 @@ body {
 }
 
 .btn-container {
-  display: inline-flex;
-  align-items: center;
-  flex-direction: column;
+  display: flex;
+  height: 42px;
   margin-left: 16px;
+}
+
+.slider {
+  margin-left: 16px;
+  width: 300px;
+  display: flex;
 }
 </style>
