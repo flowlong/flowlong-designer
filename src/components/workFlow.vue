@@ -210,6 +210,7 @@ const handleWeel = (e) => {
 
 const saveAsPng = async () => {
   const element = document.getElementById('content-to-capture')
+  element.parentElement.style.transform = 'scale(1)'
   const canvas = await html2canvas(element, {
     backgroundColor: '#efefef'
   })
