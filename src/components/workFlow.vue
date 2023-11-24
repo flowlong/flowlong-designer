@@ -1,7 +1,42 @@
 <template>
-  <div class="affix-container">
+  <el-affix
+    :offset="16"
+    style="position: absolute">
+    <div class="btn-container">
+      <el-button
+        type="primary"
+        @click="() => (drawer = true)">
+        查看 JSON
+      </el-button>
+      <el-button
+        type="primary"
+        icon="el-icon-plus"
+        style="margin-top: 16px; margin-left: 0; width: 32px"
+        @click="zoom += 0.1" />
+      <el-slider
+        v-model="zoom"
+        vertical
+        :marks="marks"
+        :min="0.1"
+        :max="5"
+        :step="0.1"
+        style="margin-top: 32px"
+        height="200px" />
+      <el-button
+        type="primary"
+        icon="el-icon-minus"
+        style="margin-top: 30px; width: 32px"
+        @click="zoom -= 0.1" />
+    </div>
+  </el-affix>
+  <div
+    @wheel="handleWeel"
+    class="affix-container"
+    :style="`transform: scale(${zoom})`"
+    style="transform-origin: 0 0">
     <sc-workflow
       class="workflow"
+      ref="workflowRef"
       v-model="data.nodeConfig" />
     <el-drawer
       v-model="drawer"
@@ -38,19 +73,22 @@
           v-model="data" />
       </div>
     </el-drawer>
-    </div>
-    <div style="position: absolute;z-index: 1;top: 20px;right: 50px">
-      <el-button
-          type="primary"
-          @click="() => (drawer = true)">
-        查看 JSON
-      </el-button>
   </div>
 </template>
 <script setup>
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 import useClipboard from 'vue-clipboard3'
 import scWorkflow from '@/components/scWorkflow/index.vue'
+
+const zoom = ref(1)
+const marks = reactive({
+  0.1: 'min',
+  1: '1',
+  2: '2',
+  3: '3',
+  4: '4',
+  5: 'max'
+})
 
 const drawer = ref(false)
 
@@ -148,6 +186,20 @@ const copyParseJson = async () => {
 const copyJson = async () => {
   await toClipboard(JSON.stringify(data.value))
 }
+
+const handleWeel = (e) => {
+  if (e.wheelDelta < 0) {
+    zoom.value -= 0.05
+  } else {
+    zoom.value += 0.05
+  }
+
+  if (zoom.value <= 0.1) {
+    zoom.value = 0.1
+  } else if (zoom.value >= 5) {
+    zoom.value = 5
+  }
+}
 </script>
 
 <style>
@@ -157,6 +209,7 @@ const copyJson = async () => {
 
 body {
   margin: 0;
+  background-color: #efefef;
 }
 
 .affix-container {
@@ -189,5 +242,12 @@ body {
 
 .el-drawer__body {
   padding: 0 !important;
+}
+
+.btn-container {
+  display: inline-flex;
+  align-items: center;
+  flex-direction: column;
+  margin-left: 16px;
 }
 </style>

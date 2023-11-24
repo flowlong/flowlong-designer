@@ -115,7 +115,6 @@ export default {
     border-style: solid;
     border-width: 8px 6px 4px;
     border-color: rgb(202, 202, 202) transparent transparent;
-    background: #fff;
   }
   .node-wrap-box.start-node:before {
     content: none;
@@ -212,7 +211,6 @@ export default {
     flex-direction: column;
     align-items: center;
     position: relative;
-    background: #fff;
   }
   .branch-box {
     display: flex;
@@ -285,7 +283,7 @@ export default {
     border-style: solid;
     border-width: 8px 6px 4px;
     border-color: rgb(202, 202, 202) transparent transparent;
-    background: rgb(245, 245, 247);
+    background: rgb(239, 239, 239);
   }
   .auto-judge .title {
     line-height: 16px;
@@ -327,7 +325,7 @@ export default {
     position: absolute;
     height: 3px;
     width: 50%;
-    background-color: #fff;
+    background-color: #efefef;
     top: -2px;
   }
   .bottom-left-cover-line,
@@ -335,7 +333,7 @@ export default {
     position: absolute;
     height: 3px;
     width: 50%;
-    background-color: #fff;
+    background-color: #efefef;
     bottom: -2px;
   }
   .top-left-cover-line {
@@ -361,7 +359,7 @@ export default {
     height: 10px;
     margin: auto;
     border-radius: 50%;
-    background: #dbdcdc;
+    background: #ccc;
   }
   .end-node-text {
     margin-top: 5px;
@@ -503,7 +501,7 @@ export default {
     background: var(--el-bg-color);
   }
   .end-node .end-node-text {
-    color: #d0d0d0;
+    color: #ccc;
   }
   .auto-judge .sort-left:hover,
   .auto-judge .sort-right:hover {

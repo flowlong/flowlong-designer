@@ -1,10 +1,7 @@
-<script setup>
-import WorkFlow from '@/components//workFlow.vue'
-</script>
-
 <template>
-    <WorkFlow/>
+  <WorkFlow />
 </template>
 
-<style scoped>
-</style>
+<script setup>
+import WorkFlow from '@/components/workFlow.vue'
+</script>
