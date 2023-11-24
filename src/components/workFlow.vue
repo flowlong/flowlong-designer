@@ -238,7 +238,6 @@ body {
 .affix-container {
   display: flex;
   justify-content: center;
-  height: calc(100vh - 74px);
   flex-direction: row-reverse;
 }
 
@@ -256,7 +255,6 @@ body {
 
 .workflow {
   padding: 10px;
-  overflow-y: auto;
 }
 
 .jsoneditor-menu > button.jsoneditor-copy {
