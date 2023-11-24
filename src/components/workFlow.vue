@@ -215,7 +215,7 @@ const saveAsPng = async () => {
   })
   const image = canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream')
   let link = document.createElement('a')
-  link.download = 'my-image.png'
+  link.download = `flowlong-${Date.now()}.png`
   link.href = image
   link.click()
 }
