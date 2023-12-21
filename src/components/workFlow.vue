@@ -16,9 +16,9 @@
       <div class="slider">
         <el-button
           type="primary"
-          icon="el-icon-plus"
+          icon="el-icon-minus"
           style="margin-right: 16px; width: 32px"
-          @click="zoom += 0.1" />
+          @click="zoom -= 0.1" />
         <el-slider
           v-model="zoom"
           :marks="marks"
@@ -28,9 +28,9 @@
           height="200px" />
         <el-button
           type="primary"
-          icon="el-icon-minus"
+          icon="el-icon-plus"
           style="margin-left: 16px; width: 32px"
-          @click="zoom -= 0.1" />
+          @click="zoom += 0.1" />
       </div>
     </div>
   </el-affix>
