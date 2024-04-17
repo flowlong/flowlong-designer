@@ -143,7 +143,7 @@
                         placeholder="Select">
                         <el-option
                           label="等于"
-                          value="="></el-option>
+                          value="=="></el-option>
                         <el-option
                           label="不等于"
                           value="!="></el-option>
