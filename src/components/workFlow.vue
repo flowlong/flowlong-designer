@@ -104,7 +104,7 @@ const data = ref({
   nodeConfig: {
     nodeName: '发起人',
     type: 0,
-    nodeRoleList: [],
+    nodeAssigneeList: [],
     childNode: {
       nodeName: '条件路由',
       type: 4,
@@ -128,13 +128,12 @@ const data = ref({
             nodeName: '领导审批',
             type: 1,
             setType: 1,
-            nodeUserList: [
+            nodeAssigneeList: [
               {
                 id: '360000197302144442',
                 name: '何敏'
               }
             ],
-            nodeRoleList: [],
             examineLevel: 1,
             directorLevel: 1,
             selectMode: 1,
@@ -155,8 +154,7 @@ const data = ref({
             nodeName: '直接主管审批',
             type: 1,
             setType: 2,
-            nodeUserList: [],
-            nodeRoleList: [],
+            nodeAssigneeList: [],
             examineLevel: 1,
             directorLevel: 1,
             selectMode: 1,
@@ -172,7 +170,7 @@ const data = ref({
         nodeName: '抄送人',
         type: 2,
         userSelectFlag: true,
-        nodeUserList: [
+        nodeAssigneeList: [
           {
             id: '220000200908305857',
             name: '何秀英'

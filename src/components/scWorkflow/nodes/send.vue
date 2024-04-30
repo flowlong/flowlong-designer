@@ -23,9 +23,9 @@
 				<el-main style="padding:0 20px 20px 20px">
 					<el-form label-position="top">
 						<el-form-item label="选择要抄送的人员">
-							<el-button type="primary" icon="el-icon-plus" round @click="selectHandle(1, form.nodeUserList)">选择人员</el-button>
+							<el-button type="primary" icon="el-icon-plus" round @click="selectHandle(1, form.nodeAssigneeList)">选择人员</el-button>
 							<div class="tags-list">
-								<el-tag v-for="(user, index) in form.nodeUserList" :key="user.id" closable @close="delUser(index)">{{user.name}}</el-tag>
+								<el-tag v-for="(user, index) in form.nodeAssigneeList" :key="user.id" closable @close="delUser(index)">{{user.name}}</el-tag>
 							</div>
 						</el-form-item>
 						<el-form-item label="">
@@ -92,14 +92,14 @@
 				this.$emit("update:modelValue", this.nodeConfig.childNode)
 			},
 			delUser(index){
-				this.form.nodeUserList.splice(index, 1)
+				this.form.nodeAssigneeList.splice(index, 1)
 			},
 			selectHandle(type, data){
 				this.select(type, data)
 			},
 			toText(nodeConfig){
-				if (nodeConfig.nodeUserList && nodeConfig.nodeUserList.length>0) {
-					const users = nodeConfig.nodeUserList.map(item=>item.name).join("、")
+				if (nodeConfig.nodeAssigneeList && nodeConfig.nodeAssigneeList.length>0) {
+					const users = nodeConfig.nodeAssigneeList.map(item=>item.name).join("、")
 					return users
 				}else{
 					if(nodeConfig.userSelectFlag){

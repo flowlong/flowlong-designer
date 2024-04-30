@@ -21,12 +21,12 @@
 				<el-main style="padding:0 20px 20px 20px">
 					<el-form label-position="top">
 						<el-form-item label="谁可以发起此审批">
-							<el-button type="primary" icon="el-icon-plus" round @click="selectHandle(2, form.nodeRoleList)">选择角色</el-button>
+							<el-button type="primary" icon="el-icon-plus" round @click="selectHandle(2, form.nodeAssigneeList)">选择角色</el-button>
 							<div class="tags-list">
-								<el-tag v-for="(role, index) in form.nodeRoleList" :key="role.id" type="info" closable @close="delRole(index)">{{role.name}}</el-tag>
+								<el-tag v-for="(role, index) in form.nodeAssigneeList" :key="role.id" type="info" closable @close="delRole(index)">{{role.name}}</el-tag>
 							</div>
 						</el-form-item>
-						<el-alert v-if="form.nodeRoleList.length==0" title="不指定则默认所有人都可发起此审批" type="info" :closable="false"/>
+						<el-alert v-if="form.nodeAssigneeList.length==0" title="不指定则默认所有人都可发起此审批" type="info" :closable="false"/>
 					</el-form>
 				</el-main>
 				<el-footer>
@@ -85,15 +85,15 @@
 				this.select(type, data)
 			},
 			delRole(index){
-				this.form.nodeRoleList.splice(index, 1)
+				this.form.nodeAssigneeList.splice(index, 1)
 			},
 			save(){
 				this.$emit("update:modelValue", this.form)
 				this.drawer = false
 			},
 			toText(nodeConfig){
-				if(nodeConfig.nodeRoleList && nodeConfig.nodeRoleList.length > 0){
-					return nodeConfig.nodeRoleList.map(item=>item.name).join("、")
+				if(nodeConfig.nodeAssigneeList && nodeConfig.nodeAssigneeList.length > 0){
+					return nodeConfig.nodeAssigneeList.map(item=>item.name).join("、")
 				}else{
 					return "所有人"
 				}

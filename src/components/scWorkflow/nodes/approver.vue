@@ -24,7 +24,7 @@
 					<el-form label-position="top">
 
 						<el-form-item label="审批人员类型">
-							<el-select v-model="form.setType">
+							<el-select v-model="form.setType" @change="changeSetType">
 								<el-option :value="1" label="指定成员"></el-option>
 								<el-option :value="2" label="主管"></el-option>
 								<el-option :value="3" label="角色"></el-option>
@@ -35,9 +35,9 @@
 						</el-form-item>
 
 						<el-form-item v-if="form.setType==1" label="选择成员">
-							<el-button type="primary" icon="el-icon-plus" round @click="selectHandle(1, form.nodeUserList)">选择人员</el-button>
+							<el-button type="primary" icon="el-icon-plus" round @click="selectHandle(1, form.nodeAssigneeList)">选择人员</el-button>
 							<div class="tags-list">
-								<el-tag v-for="(user, index) in form.nodeUserList" :key="user.id" closable @close="delUser(index)">{{user.name}}</el-tag>
+								<el-tag v-for="(user, index) in form.nodeAssigneeList" :key="user.id" closable @close="delUser(index)">{{user.name}}</el-tag>
 							</div>
 						</el-form-item>
 
@@ -46,9 +46,9 @@
 						</el-form-item>
 
 						<el-form-item v-if="form.setType==3" label="选择角色">
-							<el-button type="primary" icon="el-icon-plus" round @click="selectHandle(2, form.nodeRoleList)">选择角色</el-button>
+							<el-button type="primary" icon="el-icon-plus" round @click="selectHandle(2, form.nodeAssigneeList)">选择角色</el-button>
 							<div class="tags-list">
-								<el-tag v-for="(role, index) in form.nodeRoleList" :key="role.id" type="info" closable @close="delRole(index)">{{role.name}}</el-tag>
+								<el-tag v-for="(role, index) in form.nodeAssigneeList" :key="role.id" type="info" closable @close="delRole(index)">{{role.name}}</el-tag>
 							</div>
 						</el-form-item>
 
@@ -151,18 +151,21 @@
 				this.$emit("update:modelValue", this.nodeConfig.childNode)
 			},
 			delUser(index){
-				this.form.nodeUserList.splice(index, 1)
+				this.form.nodeAssigneeList.splice(index, 1)
 			},
 			delRole(index){
-				this.form.nodeRoleList.splice(index, 1)
+				this.form.nodeAssigneeList.splice(index, 1)
 			},
 			selectHandle(type, data){
 				this.select(type, data)
 			},
+      changeSetType() {
+        this.form.nodeAssigneeList = [];
+      },
 			toText(nodeConfig){
 				if(nodeConfig.setType == 1){
-					if (nodeConfig.nodeUserList && nodeConfig.nodeUserList.length>0) {
-						const users = nodeConfig.nodeUserList.map(item=>item.name).join("、")
+					if (nodeConfig.nodeAssigneeList && nodeConfig.nodeAssigneeList.length>0) {
+						const users = nodeConfig.nodeAssigneeList.map(item=>item.name).join("、")
 						return users
 					}else{
 						return false
@@ -170,8 +173,8 @@
 				}else if (nodeConfig.setType == 2) {
 					return nodeConfig.examineLevel == 1 ? '直接主管' : `发起人的第${nodeConfig.examineLevel}级主管`
 				}else if (nodeConfig.setType == 3) {
-					if (nodeConfig.nodeRoleList && nodeConfig.nodeRoleList.length>0) {
-						const roles = nodeConfig.nodeRoleList.map(item=>item.name).join("、")
+					if (nodeConfig.nodeAssigneeList && nodeConfig.nodeAssigneeList.length>0) {
+						const roles = nodeConfig.nodeAssigneeList.map(item=>item.name).join("、")
 						return '角色-' + roles
 					}else{
 						return false

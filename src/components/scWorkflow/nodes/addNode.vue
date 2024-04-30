@@ -46,9 +46,8 @@
 					node = {
 						nodeName: "审核人",
 						type: 1,			//节点类型
-						setType: 1,			//审核人类型
-						nodeUserList: [],	//审核人成员
-						nodeRoleList: [],	//审核角色
+						setType: 1,			//审核人类型 1，选择成员 3，选择角色
+            nodeAssigneeList: [],	//审核人员，根据 setType 确定成员还是角色
 						examineLevel: 1,	//指定主管层级
 						directorLevel: 1,	//自定义连续主管审批层级
 						selectMode: 1,		//发起人自选类型
@@ -64,7 +63,7 @@
 						nodeName: "抄送人",
 						type: 2,
 						userSelectFlag: true,
-						nodeUserList: [],
+						nodeAssigneeList: [],
 						childNode: this.modelValue
 					}
 
